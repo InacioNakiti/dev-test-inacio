@@ -1,0 +1,141 @@
+<style>
+  /* Adding top spacing to the products row */
+  .section-interactive-products .products-row {
+    margin-top: 45px;    
+  }
+
+  /* Centering title and subtitle text */
+  .title-and-subtitle {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Title styles */
+  .title-and-subtitle .title {
+    font-size: 42px;
+    font-family: 'Arial Black';
+  }
+
+  /* Sub title styles */
+  .title-and-subtitle .sub-title {
+    font-size: 24px;
+  }
+
+  /* Product image */
+  .products-row img {
+    width: 100%;
+  }
+
+  /* Adding space around product column */
+  .products-row .product {
+    padding: 45px;
+    text-decoration: none;
+  }
+
+  .products-row .product-name {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  /* Smaller than [ 480px ] - Mobile */
+  @media only screen and (max-width: 480px) {
+    
+    /* Title styles */
+    .title-and-subtitle .title {
+      font-size: 18px;
+    }
+
+  }
+</style>
+
+<div class="page-width section-interactive-products">
+
+  <!-- Title and Subtitle -->
+  <div class="row title-and-subtitle">
+    {% if section.settings.title != blank %}
+      <h2 class="title">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    {% if section.settings.sub_title != blank %}
+      <h4 class="sub-title">{{ section.settings.sub_title }}</h4>
+    {% endif %}
+  </div>
+
+  <!-- Products-->
+  <div class="grid products-row">
+
+      {% for block in section.blocks %}
+
+        <a href="{{ block.settings.product_link }}" class="grid__item product">
+          
+           <img src="{{ block.settings.image | img_url: '350x350'}}" alt="product-image">
+
+           <h4 class="product-name">{{ block.settings.product_name }}</h4>
+        </a> 
+
+       
+    
+      {% endfor %}
+
+  </div>  
+
+</div>
+
+
+
+{% schema %}
+{
+"name": "Interactive Product SC",
+"settings": [
+     {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "<h2>Title</h2>"
+    },
+	{
+      "type": "text",
+      "id": "sub_title",
+      "label": "Sub Title",
+      "default": "Sub Title"
+    }
+],
+
+"max_blocks": 5,
+"blocks": [
+   {
+     "name": "product",
+     "type": "product",
+     "settings": [
+       {
+         "type": "url",
+         "id": "product_link",
+         "label": "Product Link"
+       },
+       {
+         "type": "image_picker",
+         "id": "image",
+         "label": "Image"
+       },
+       {
+        "type": "text",
+        "id": "product_name",
+        "label": "Product Name",
+        "default": "Product Name"
+      }
+     ]
+   }
+],
+"presets": [
+  {
+    "name": "Interactive Product SC"
+  }
+]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
